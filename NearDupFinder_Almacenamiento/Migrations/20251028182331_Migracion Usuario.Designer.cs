@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NearDupFinder_Almacenamiento;
 
@@ -10,9 +11,11 @@ using NearDupFinder_Almacenamiento;
 namespace NearDupFinder_Almacenamiento.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20251028182331_Migracion Usuario")]
+    partial class MigracionUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,24 +142,6 @@ namespace NearDupFinder_Almacenamiento.Migrations
                                 .HasForeignKey("UsuarioId");
                         });
 
-                    b.OwnsMany("NearDupFinder_Dominio.Clases.RolPersistido", "RolesPersistidos", b1 =>
-                        {
-                            b1.Property<int>("UsuarioId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Valor")
-                                .HasMaxLength(64)
-                                .HasColumnType("nvarchar(64)")
-                                .HasColumnName("Rol");
-
-                            b1.HasKey("UsuarioId", "Valor");
-
-                            b1.ToTable("UsuarioRoles", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("UsuarioId");
-                        });
-
                     b.Navigation("Clave")
                         .IsRequired();
 
@@ -165,8 +150,6 @@ namespace NearDupFinder_Almacenamiento.Migrations
 
                     b.Navigation("FechaNacimiento")
                         .IsRequired();
-
-                    b.Navigation("RolesPersistidos");
                 });
 #pragma warning restore 612, 618
         }
